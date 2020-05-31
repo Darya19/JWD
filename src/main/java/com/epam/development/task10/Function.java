@@ -5,7 +5,7 @@ public class Function {
    private double a, b;
    private double h;
 
-    private Function(double a, double b, double h) {
+    public Function(double a, double b, double h) {
         this.a = a;
         this.b = b;
         this.h = h;

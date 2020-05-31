@@ -1,12 +1,8 @@
 package com.epam.development.task7;
 
-import com.epam.development.task6.InvalidNumberOfSecondsException;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PointCoordinates {
 
