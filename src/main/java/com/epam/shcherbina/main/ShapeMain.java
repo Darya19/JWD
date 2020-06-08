@@ -1,7 +1,7 @@
 package com.epam.shcherbina.main;
 
 import com.epam.shcherbina.console.PrintResult;
-import com.epam.shcherbina.entity.ResultResponse;
+import com.epam.shcherbina.entity.Response;
 import com.epam.shcherbina.service.ShapeService;
 
 public class ShapeMain {
@@ -9,7 +9,7 @@ public class ShapeMain {
     public static void main(String[] args) {
         ShapeService service = new ShapeService();
         PrintResult result = new PrintResult();
-        ResultResponse<Double> response = service.getNumber("149");
+        Response<Double> response = service.getNumber("149");
         double bigSquare = response.getResult();
         double areaOfCircle = service.calculateAreaOfCircleInscribedInSquare(bigSquare).getResult();
         response = service.calculateAreaOfSquareInscribedInCircle(areaOfCircle);

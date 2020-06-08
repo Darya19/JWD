@@ -1,11 +1,11 @@
 package com.epam.shcherbina.parser;
 
-import com.epam.shcherbina.entity.ResultResponse;
+import com.epam.shcherbina.entity.Response;
 import com.epam.shcherbina.entity.Status;
 
 public class TimeParser {
 
-    public ResultResponse<Integer> parseMonthToInt(String date){
+    public Response<Integer> parseMonthToInt(String date){
         int month = 0;
         switch (date) {
             case "january" :
@@ -44,8 +44,8 @@ public class TimeParser {
             case "december" :
                 month = 12;
                 break;
-            default: return new ResultResponse<Integer>(Status.ERROR, "Invalid number", null);
+            default: return new Response<Integer>(Status.ERROR, "Invalid number", null);
         }
-        return new ResultResponse<Integer>(Status.OK, "none", month);
+        return new Response<Integer>(Status.OK, "none", month);
     }
 }

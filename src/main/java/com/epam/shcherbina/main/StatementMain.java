@@ -1,7 +1,7 @@
 package com.epam.shcherbina.main;
 
 import com.epam.shcherbina.console.PrintResult;
-import com.epam.shcherbina.entity.ResultResponse;
+import com.epam.shcherbina.entity.Response;
 import com.epam.shcherbina.service.StatementService;
 
 import java.util.List;
@@ -10,7 +10,7 @@ public class StatementMain {
     public static void main(String[] args) {
         StatementService service = new StatementService();
         PrintResult print = new PrintResult();
-        ResultResponse<List<Integer>> result = service.createListOfEvenNumbers("1","2", "3","4");
+        Response<List<Integer>> result = service.createListOfEvenNumbers("1","2", "3","4");
         print.echoResult(result.toString());
         Boolean statement = service.isPerfectNumber(result.getResult()).getResult();
         print.echoResult(statement);
@@ -23,10 +23,10 @@ public class StatementMain {
         result = service.createListOfEvenNumbers("3","3", "hfvbgdj","4");
         print.echoResult(result.toString());
 
-        ResultResponse<Integer>  result2 = service.getNumber("6");
+        Response<Integer> result2 = service.getNumber("6");
         int num = result2.getResult();
         result2 = service.calculateSumOfDividers(num);
-        ResultResponse<Boolean> statement2 = service.isPerfectNumber(num,result2.getResult());
+        Response<Boolean> statement2 = service.isPerfectNumber(num,result2.getResult());
         print.echoResult(statement2.toString());
 
         result2 = service.getNumber("1458");

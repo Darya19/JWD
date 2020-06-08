@@ -1,12 +1,12 @@
 package com.epam.shcherbina.entity;
 
-public class ResultResponse<T> {
+public class Response<T> {
 
     private Status status;
     private String errorMessage;
     private T result;
 
-    public ResultResponse(Status status, String errorMessage, T result) {
+    public Response(Status status, String errorMessage, T result) {
         this.status = status;
         this.errorMessage = errorMessage;
         this.result = result;
@@ -51,7 +51,7 @@ public class ResultResponse<T> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ResultResponse<?> that = (ResultResponse<?>) o;
+        Response<?> that = (Response<?>) o;
 
         if (status != that.status) return false;
         if (errorMessage != null ? !errorMessage.equals(that.errorMessage) : that.errorMessage != null) return false;
