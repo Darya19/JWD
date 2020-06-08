@@ -1,12 +1,14 @@
 package com.epam.shcherbina.validator;
 
 public class NumberValidator {
+    final int MAX_VALUE = 1;
+    final int MIN_VALUE = 1000;
 
-    public boolean ValidateNumber(int number){
-         return number >= 1 && number <= 1000;
+    public boolean validateNumber(double number) {
+        return number >= MIN_VALUE && number <= MAX_VALUE;
     }
 
-    public boolean ValidateNumber(double number){
-        return number >= -1.0 && number <= 1000.0;
+    public boolean checkEvenNumber(int number) {
+        return number % 2 == 0;
     }
 }

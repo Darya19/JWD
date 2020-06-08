@@ -1,102 +1,54 @@
 package com.epam.shcherbina.service;
 
-import com.epam.shcherbina.exception.ConversionException;
+import com.epam.shcherbina.entity.ResultResponse;
+import com.epam.shcherbina.entity.Status;
 import com.epam.shcherbina.exception.InvalidNumberException;
 import com.epam.shcherbina.parser.NumberParser;
-import com.epam.shcherbina.util.ShapeHelper;
 import com.epam.shcherbina.validator.NumberValidator;
 
 public class ShapeService {
 
-    private double numberIsCorrect(String value) throws ConversionException, InvalidNumberException {
+    private final double PI = 3.14;
+
+    public ResultResponse<Double> getNumber(String value) {
         NumberParser parser = new NumberParser();
         NumberValidator validator = new NumberValidator();
         double number;
+        try {
             number = parser.parseToDouble(value);
-            if (validator.ValidateNumber(number)) {
-                return number;
-            } else throw new InvalidNumberException("Incorrect number");
-    }
-
-    private double numberIsCorrect(double value) throws InvalidNumberException {
-        NumberValidator validator = new NumberValidator();
-        if (validator.ValidateNumber(value)) {
-            return value;
-        } else throw new InvalidNumberException("Incorrect number");
-    }
-
-
-    public double getAreaOfSmallSquare(String value) {
-        ShapeHelper helper = new ShapeHelper();
-        double number;
-        try { number = numberIsCorrect(value);
-              number = helper.getAreaOfCircleInscribedInSquare(number);
-              number = helper.getAreaOfSquareInscribedInCircle(number);
-              return number;
-        } catch (ConversionException | InvalidNumberException e) {
-            return -1;
-        }
-    }
-
-    public double getAreaOfSmallSquare(double value) {
-        ShapeHelper helper = new ShapeHelper();
-        double number;
-        try { number = numberIsCorrect(value);
-             number = helper.getAreaOfCircleInscribedInSquare(number);
-             number = helper.getAreaOfSquareInscribedInCircle(number);
-            return number;
+            if (validator.validateNumber(number)) {
+                return new ResultResponse<Double>(Status.OK, "none", number);
+            } else {
+                return new ResultResponse<Double>(Status.ERROR, "Invalid number", null);
+            }
         } catch (InvalidNumberException e) {
-            return -1;
+            return new ResultResponse<Double>(Status.ERROR, "Invalid number", null);
         }
     }
 
-    public double getDifferenceInSquares(double bigSquare, double smallSquare){
-        ShapeHelper helper = new ShapeHelper();
-        return helper.getDifferenceInSquares(bigSquare, smallSquare);
+    public ResultResponse<Double> calculateAreaOfCircleInscribedInSquare(double areaOfBigSquare){
+        double areaOfCircle = PI * (areaOfBigSquare / 4.0);
+        return new ResultResponse<Double>(Status.OK, "none", areaOfCircle);
     }
 
-    public double getSquareOfCircle(String radius){
-        double number;
-        ShapeHelper helper = new ShapeHelper();
-        try {
-            number = numberIsCorrect(radius);
-            return helper.getSquareOfCircle(number);
-        } catch (ConversionException | InvalidNumberException e) {
-            return -1;
-        }
+    public ResultResponse<Double> calculateAreaOfSquareInscribedInCircle(double areaOfCircle) {
+              double areaOfSquare = 2.0 * areaOfCircle / PI;
+            return new ResultResponse<Double>(Status.OK, "none", areaOfSquare);
     }
 
-    public double getSquareOfCircle(double radius) {
-        ShapeHelper helper = new ShapeHelper();
-        double number;
-        try {
-            number = numberIsCorrect(radius);
-            return helper.getSquareOfCircle(radius);
-        } catch (InvalidNumberException e) {
-            return -1;
-        }
+    public ResultResponse<Double> calculateDifferenceInSquares(double bigSquare, double smallSquare){
+        double difference =  bigSquare / smallSquare;
+      return  new ResultResponse<>(Status.OK, "none", difference);
     }
 
-    public double getCircumferenceOfCircle(String radius){
-        double number;
-        ShapeHelper helper = new ShapeHelper();
-        try {
-            number = numberIsCorrect(radius);
-            return helper.getCircumferenceOfCircle(number);
-        } catch (ConversionException | InvalidNumberException e) {
-            return -1;
-        }
+    public ResultResponse<Double> calculateAreaOfCircle(double radius) {
+                double areaOfCircle = PI * Math.pow(radius, 2);
+                return new ResultResponse<Double>(Status.OK, "none", areaOfCircle);
     }
 
-    public double getCircumferenceOfCircle(double radius) {
-        ShapeHelper helper = new ShapeHelper();
-        double number;
-        try {
-            number = numberIsCorrect(radius);
-            return helper.getCircumferenceOfCircle(radius);
-        } catch (InvalidNumberException e) {
-            return -1;
-        }
+    public ResultResponse<Double> calculateCircumferenceOfCircle(double radius) {
+        double circumferenceOfCircle = PI * 2 * radius;
+        return new ResultResponse<Double>(Status.OK, "none", circumferenceOfCircle);
     }
-    }
+}
 

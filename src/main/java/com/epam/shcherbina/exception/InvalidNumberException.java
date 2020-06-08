@@ -1,6 +1,7 @@
 package com.epam.shcherbina.exception;
 
 public class InvalidNumberException extends Exception {
+
     public InvalidNumberException() {
     }
 

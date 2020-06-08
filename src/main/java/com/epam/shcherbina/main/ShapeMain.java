@@ -1,23 +1,33 @@
 package com.epam.shcherbina.main;
 
-import com.epam.shcherbina.console.ShowResult;
+import com.epam.shcherbina.console.PrintResult;
+import com.epam.shcherbina.entity.ResultResponse;
 import com.epam.shcherbina.service.ShapeService;
 
 public class ShapeMain {
 
     public static void main(String[] args) {
         ShapeService service = new ShapeService();
-        ShowResult result = new ShowResult();
-       double smallSquare = service.getAreaOfSmallSquare("149");
-        result.echoResult(smallSquare);
-        result.echoResult(service.getDifferenceInSquares(369, smallSquare));
-        result.echoResult(service.getAreaOfSmallSquare("gghghgu"));
+        PrintResult result = new PrintResult();
+        ResultResponse<Double> response = service.getNumber("149");
+        double bigSquare = response.getResult();
+        double areaOfCircle = service.calculateAreaOfCircleInscribedInSquare(bigSquare).getResult();
+        response = service.calculateAreaOfSquareInscribedInCircle(areaOfCircle);
+        result.echoResult(response.getResult().toString());
+        response = service.calculateDifferenceInSquares(bigSquare, response.getResult());
+        result.echoResult( response.getResult().toString());
 
-        result.echoResult(service.getSquareOfCircle("35656"));
-        result.echoResult(service.getSquareOfCircle("-3"));
-        result.echoResult(service.getSquareOfCircle(456.3));
-        result.echoResult(service.getSquareOfCircle(-43));
-        result.echoResult(service.getCircumferenceOfCircle("35656232356356565"));
-        result.echoResult(service.getCircumferenceOfCircle(-400));
+        response = service.getNumber("149lkjk");
+        result.echoResult(response.toString());
+
+        double radius = service.getNumber("35656").getResult();
+        result.echoResult(service.calculateAreaOfCircle(radius).toString());
+        result.echoResult(service.calculateCircumferenceOfCircle(radius).toString());
+        radius = service.getNumber("hjgj").getResult();
+        result.echoResult(service.calculateAreaOfCircle(radius).toString());
+        result.echoResult(service.calculateCircumferenceOfCircle(radius).toString());
+        radius = service.getNumber("6").getResult();
+        result.echoResult(service.calculateAreaOfCircle(radius).toString());
+        result.echoResult(service.calculateCircumferenceOfCircle(radius).toString());
     }
 }
