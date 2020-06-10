@@ -1,8 +1,9 @@
 package com.epam.day1.service;
 
-import com.epam.day1.entity.Response;
 import com.epam.day1.exception.CustomException;
 import com.epam.day1.parser.NumberParser;
+import com.epam.day1.response.ErrorCode;
+import com.epam.day1.response.Response;
 import com.epam.day1.validator.NumberValidator;
 
 public class ShapeService {
@@ -16,15 +17,15 @@ public class ShapeService {
         this.validator = new NumberValidator();
     }
 
-    public Response<Double> checkRadius(String radius) {
-        double number;
+    public Response<Double> checkRadius(String value) {
+        double radius;
         try {
-            number = parser.parseToDouble(radius);
-            return validator.validateNumber(number) ?
-                    ResponseHelper.makeOkResponse(number) :
-                    ResponseHelper.makeErrorResponse();
+            radius = parser.parseToDouble(value);
+            return validator.validateNumber(radius) ?
+                    ResponseHelper.makeOkResponse(radius) :
+                    ResponseHelper.makeErrorResponse(ErrorCode.VALIDATION_ERROR);
         } catch (CustomException e) {
-            return ResponseHelper.makeErrorResponse();
+            return ResponseHelper.makeErrorResponse(ErrorCode.PARSING_ERROR);
         }
     }
 

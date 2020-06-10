@@ -1,7 +1,8 @@
 package com.epam.day1.service;
 
 import com.epam.day1.entity.Day;
-import com.epam.day1.entity.Response;
+import com.epam.day1.response.ErrorCode;
+import com.epam.day1.response.Response;
 import com.epam.day1.exception.CustomException;
 import com.epam.day1.parser.NumberParser;
 import com.epam.day1.parser.TimeParser;
@@ -16,6 +17,7 @@ public class TimeService {
     private TimeParser timeParser;
     private final int SECONDS_IN_MINUTE = 60;
     private final int SECONDS_IN_HOUR = 3600;
+    private final String REGEX ="\\d+";
 
     public TimeService() {
         this.parser = new NumberParser();
@@ -25,35 +27,34 @@ public class TimeService {
 
     public Response<Integer> checkMonth(String date) {
         Integer month;
-        if (date.matches("^[1-9]$")) {
+        if (date.matches(REGEX)) {
             try {
                 month = parser.parseToInt(date);
                 return validator.validateMonth(month) ?
                         ResponseHelper.makeOkResponse(month) :
-                        ResponseHelper.makeErrorResponse();
+                        ResponseHelper.makeErrorResponse(ErrorCode.VALIDATION_ERROR);
             } catch (CustomException e) {
-                return ResponseHelper.makeErrorResponse();
+                return ResponseHelper.makeErrorResponse(ErrorCode.PARSING_ERROR);
             }
         } else {
             try {
-                month = timeParser.parseMonthNameToInt(date).getResult();
-                return month != null ?
-                        ResponseHelper.makeOkResponse(month) :
-                        ResponseHelper.makeErrorResponse();
+                month = timeParser.parseMonthNameToInt(date);
+                return ResponseHelper.makeOkResponse(month);
             } catch (CustomException e) {
-                return ResponseHelper.makeErrorResponse();
+                return ResponseHelper.makeErrorResponse(ErrorCode.PARSING_ERROR);
             }
         }
     }
 
     public Response<Integer> checkYear(String date) {
+        int year;
         try {
-            int year = parser.parseToInt(date);
+            year = parser.parseToInt(date);
             return validator.validateYear(year) ?
                     ResponseHelper.makeOkResponse(year) :
-                    ResponseHelper.makeErrorResponse();
+                    ResponseHelper.makeErrorResponse(ErrorCode.VALIDATION_ERROR);
         } catch (CustomException e) {
-            return ResponseHelper.makeErrorResponse();
+            return ResponseHelper.makeErrorResponse(ErrorCode.PARSING_ERROR);
         }
     }
 
@@ -69,9 +70,9 @@ public class TimeService {
             numberOfSeconds = parser.parseToInt(value);
             return validator.validateNumberOfSeconds(numberOfSeconds) ?
                     ResponseHelper.makeOkResponse(numberOfSeconds) :
-                    ResponseHelper.makeErrorResponse();
+                    ResponseHelper.makeErrorResponse(ErrorCode.VALIDATION_ERROR);
         } catch (CustomException e) {
-            return ResponseHelper.makeErrorResponse();
+            return ResponseHelper.makeErrorResponse(ErrorCode.PARSING_ERROR);
         }
     }
 

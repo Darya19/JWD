@@ -1,7 +1,8 @@
 package com.epam.day1.service;
 
+import com.epam.day1.response.ErrorCode;
 import com.epam.day1.entity.Point;
-import com.epam.day1.entity.Response;
+import com.epam.day1.response.Response;
 import com.epam.day1.exception.CustomException;
 import com.epam.day1.parser.NumberParser;
 import com.epam.day1.validator.NumberValidator;
@@ -16,15 +17,17 @@ public class PointService {
         this.validator = new NumberValidator();
     }
 
-    public Response<Double> checkCoordinate(String coordinate) {
-        double number;
+    public Response<Point> checkCoordinatesValue(String coordinateX, String coordinateY) {
+        double x;
+        double y;
         try {
-            number = parser.parseToDouble(coordinate);
-            return validator.validateNumber(number) ?
-                    ResponseHelper.makeOkResponse(number) :
-                    ResponseHelper.makeErrorResponse();
+            x = parser.parseToDouble(coordinateX);
+            y = parser.parseToDouble(coordinateY);
+            return validator.validateNumber(x) && validator.validateNumber(y) ?
+                    ResponseHelper.makeOkResponse(new Point(x, y)) :
+                    ResponseHelper.makeErrorResponse(ErrorCode.VALIDATION_ERROR);
         } catch (CustomException e) {
-            return ResponseHelper.makeErrorResponse();
+            return ResponseHelper.makeErrorResponse(ErrorCode.PARSING_ERROR);
         }
     }
 

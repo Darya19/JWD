@@ -1,4 +1,4 @@
-package com.epam.day1.entity;
+package com.epam.day1.response;
 
 public class Response<T> {
 

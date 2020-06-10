@@ -1,6 +1,7 @@
 package com.epam.day1.service;
 
-import com.epam.day1.entity.Response;
+import com.epam.day1.response.ErrorCode;
+import com.epam.day1.response.Response;
 import com.epam.day1.exception.CustomException;
 import com.epam.day1.parser.NumberParser;
 import com.epam.day1.validator.NumberValidator;
@@ -15,15 +16,15 @@ public class MathService {
         this.validator = new NumberValidator();
     }
 
-    public Response<Integer> calculateLastDigit(String value) {
+    public Response<Integer> checkNumber(String value) {
         int number;
         try {
             number = parser.parseToInt(value);
             return validator.validateNumber(number) ?
-                    ResponseHelper.makeOkResponse(number % 10) :
-                    ResponseHelper.makeErrorResponse();
+                    ResponseHelper.makeOkResponse(number) :
+                    ResponseHelper.makeErrorResponse(ErrorCode.VALIDATION_ERROR);
         } catch (CustomException e) {
-            return ResponseHelper.makeErrorResponse();
+            return ResponseHelper.makeErrorResponse(ErrorCode.PARSING_ERROR);
         }
     }
 

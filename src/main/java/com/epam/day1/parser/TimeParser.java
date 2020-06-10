@@ -1,13 +1,10 @@
 package com.epam.day1.parser;
 
-import com.epam.day1.entity.ErrorCode;
-import com.epam.day1.entity.Response;
-import com.epam.day1.entity.Status;
 import com.epam.day1.exception.CustomException;
 
 public class TimeParser {
 
-    public Response<Integer> parseMonthNameToInt(String date) throws CustomException {
+    public int parseMonthNameToInt(String date) throws CustomException {
         int month = 0;
         switch (date) {
             case "january":
@@ -47,8 +44,8 @@ public class TimeParser {
                 month = 12;
                 break;
             default:
-                throw new CustomException("Incorrect month's name");
+                throw new CustomException("Incorrect month name");
         }
-        return new Response<Integer>(Status.OK, ErrorCode.NONE, month);
+        return month;
     }
 }

@@ -1,8 +1,9 @@
 package com.epam.day1.service;
 
-import com.epam.day1.entity.Response;
 import com.epam.day1.exception.CustomException;
 import com.epam.day1.parser.NumberParser;
+import com.epam.day1.response.ErrorCode;
+import com.epam.day1.response.Response;
 import com.epam.day1.validator.NumberValidator;
 
 import java.util.ArrayList;
@@ -27,11 +28,13 @@ public class StatementService {
                     if (validator.checkEvenNumber(number)) {
                         listOfNumbers.add(number);
                     }
+                } else {
+                    return ResponseHelper.makeErrorResponse(ErrorCode.VALIDATION_ERROR);
                 }
             }
             return ResponseHelper.makeOkResponse(listOfNumbers);
         } catch (CustomException e) {
-            return ResponseHelper.makeErrorResponse();
+            return ResponseHelper.makeErrorResponse(ErrorCode.PARSING_ERROR);
         }
     }
 
@@ -47,9 +50,9 @@ public class StatementService {
             number = parser.parseToInt(value);
             return validator.validateNumber(number) ?
                     ResponseHelper.makeOkResponse(number) :
-                    ResponseHelper.makeErrorResponse();
+                    ResponseHelper.makeErrorResponse(ErrorCode.VALIDATION_ERROR);
         } catch (CustomException e) {
-            return ResponseHelper.makeErrorResponse();
+            return ResponseHelper.makeErrorResponse(ErrorCode.PARSING_ERROR);
         }
     }
 
