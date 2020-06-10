@@ -4,15 +4,15 @@ import java.util.Map;
 
 public class PrintResult {
 
-    public void echoResult(String value){
+    public void echoResult(String value) {
         System.out.println(value);
     }
 
-    public void echoResult(int value){
+    public void echoResult(int value) {
         System.out.println(value);
     }
 
-    public void echoResult(Boolean value){
+    public void echoResult(Boolean value) {
         System.out.println(value);
     }
 

@@ -1,11 +1,11 @@
 package com.epam.day1.service;
 
 import com.epam.day1.entity.Day;
-import com.epam.day1.response.ErrorCode;
-import com.epam.day1.response.Response;
 import com.epam.day1.exception.CustomException;
 import com.epam.day1.parser.NumberParser;
 import com.epam.day1.parser.TimeParser;
+import com.epam.day1.response.ErrorCode;
+import com.epam.day1.response.Response;
 import com.epam.day1.validator.TimeValidator;
 
 import java.time.LocalDate;
@@ -17,7 +17,7 @@ public class TimeService {
     private TimeParser timeParser;
     private final int SECONDS_IN_MINUTE = 60;
     private final int SECONDS_IN_HOUR = 3600;
-    private final String REGEX ="\\d+";
+    private final String REGEX = "\\d+";
 
     public TimeService() {
         this.parser = new NumberParser();

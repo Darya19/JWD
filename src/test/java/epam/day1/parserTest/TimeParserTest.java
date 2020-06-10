@@ -23,7 +23,7 @@ public class TimeParserTest {
     }
 
     @Test(expectedExceptions = CustomException.class)
-    public void parseMonthNameToIntNegativeTest() throws CustomException{
+    public void parseMonthNameToIntNegativeTest() throws CustomException {
         String month = "jmh";
         parser.parseMonthNameToInt(month);
     }

@@ -1,9 +1,9 @@
 package com.epam.day1.service;
 
-import com.epam.day1.response.ErrorCode;
-import com.epam.day1.response.Response;
 import com.epam.day1.exception.CustomException;
 import com.epam.day1.parser.NumberParser;
+import com.epam.day1.response.ErrorCode;
+import com.epam.day1.response.Response;
 import com.epam.day1.validator.NumberValidator;
 
 public class MathService {

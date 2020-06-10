@@ -1,9 +1,9 @@
 package epam.day1.serviceTest;
 
 import com.epam.day1.entity.Point;
-import com.epam.day1.response.Status;
 import com.epam.day1.response.ErrorCode;
 import com.epam.day1.response.Response;
+import com.epam.day1.response.Status;
 import com.epam.day1.service.PointService;
 import org.testng.annotations.Test;
 

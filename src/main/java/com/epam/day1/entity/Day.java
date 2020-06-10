@@ -2,9 +2,9 @@ package com.epam.day1.entity;
 
 public class Day {
 
-   private int hour;
-   private int minute;
-   private int second;
+    private int hour;
+    private int minute;
+    private int second;
 
     public Day() {
     }

@@ -1,8 +1,8 @@
 package epam.day1.serviceTest;
 
-import com.epam.day1.response.Status;
 import com.epam.day1.response.ErrorCode;
 import com.epam.day1.response.Response;
+import com.epam.day1.response.Status;
 import com.epam.day1.service.FunctionService;
 import org.testng.annotations.Test;
 

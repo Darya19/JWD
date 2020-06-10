@@ -24,7 +24,7 @@ public class NumberParserTest {
     }
 
     @Test(expectedExceptions = CustomException.class)
-    public void parseToIntNegativeTest() throws CustomException{
+    public void parseToIntNegativeTest() throws CustomException {
         String number = "jmh";
         parser.parseToInt(number);
     }
@@ -42,7 +42,7 @@ public class NumberParserTest {
     }
 
     @Test(expectedExceptions = CustomException.class)
-    public void parseToDoubleNegativeTest() throws CustomException{
+    public void parseToDoubleNegativeTest() throws CustomException {
         String number = "12a";
         parser.parseToDouble(number);
     }
