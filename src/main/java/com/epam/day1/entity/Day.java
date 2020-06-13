@@ -43,9 +43,7 @@ public class Day {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Day day = (Day) o;
-
         if (hour != day.hour) return false;
         if (minute != day.minute) return false;
         return second == day.second;

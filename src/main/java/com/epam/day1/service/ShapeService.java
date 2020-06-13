@@ -1,7 +1,5 @@
 package com.epam.day1.service;
 
-import com.epam.day1.exception.CustomException;
-import com.epam.day1.parser.NumberParser;
 import com.epam.day1.response.ErrorCode;
 import com.epam.day1.response.Response;
 import com.epam.day1.validator.NumberValidator;
@@ -9,24 +7,12 @@ import com.epam.day1.validator.NumberValidator;
 public class ShapeService {
 
     private final double PI = 3.14;
-    private NumberParser parser;
-    private NumberValidator validator;
 
-    public ShapeService() {
-        this.parser = new NumberParser();
-        this.validator = new NumberValidator();
-    }
-
-    public Response<Double> checkRadius(String value) {
-        double radius;
-        try {
-            radius = parser.parseToDouble(value);
-            return validator.validateNumber(radius) ?
-                    ResponseHelper.makeOkResponse(radius) :
-                    ResponseHelper.makeErrorResponse(ErrorCode.VALIDATION_ERROR);
-        } catch (CustomException e) {
-            return ResponseHelper.makeErrorResponse(ErrorCode.PARSING_ERROR);
-        }
+    public Response<Double> checkRadius(Double radius) {
+        NumberValidator validator = new NumberValidator();
+        return validator.validateNumber(radius) ?
+                ResponseHelper.makeOkResponse(radius) :
+                ResponseHelper.makeErrorResponse(ErrorCode.VALIDATION_ERROR);
     }
 
     public Response<Double> calculateAreaOfCircleInscribedInSquare(double areaOfBigSquare) {

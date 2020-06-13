@@ -1,7 +1,5 @@
 package com.epam.day1.service;
 
-import com.epam.day1.exception.CustomException;
-import com.epam.day1.parser.NumberParser;
 import com.epam.day1.response.ErrorCode;
 import com.epam.day1.response.Response;
 import com.epam.day1.validator.NumberValidator;
@@ -11,32 +9,21 @@ import java.util.List;
 
 public class StatementService {
 
-    private NumberParser parser;
-    private NumberValidator validator;
-
-    public StatementService() {
-        this.parser = new NumberParser();
-        this.validator = new NumberValidator();
-    }
-
-    public Response<List<Integer>> createListOfEvenNumbers(String... value) {
+    public Response<List<Integer>> createListOfEvenNumbers(List<Integer> list) {
+        NumberValidator validator = new NumberValidator();
         List<Integer> listOfNumbers = new ArrayList<>();
-        try {
-            for (int i = 0; i < 4; i++) {
-                int number = parser.parseToInt(value[i]);
-                if (validator.validateNumber(number)) {
-                    if (validator.checkEvenNumber(number)) {
-                        listOfNumbers.add(number);
-                    }
-                } else {
-                    return ResponseHelper.makeErrorResponse(ErrorCode.VALIDATION_ERROR);
+        for (int i = 0; i < 4; i++) {
+            if (validator.validateNumber(list.get(i))) {
+                if (validator.checkEvenNumber(list.get(i))) {
+                    listOfNumbers.add(list.get(i));
                 }
+            } else {
+                return ResponseHelper.makeErrorResponse(ErrorCode.VALIDATION_ERROR);
             }
-            return ResponseHelper.makeOkResponse(listOfNumbers);
-        } catch (CustomException e) {
-            return ResponseHelper.makeErrorResponse(ErrorCode.PARSING_ERROR);
         }
+        return ResponseHelper.makeOkResponse(listOfNumbers);
     }
+
 
     public Response<Boolean> trueOrFalseStatement(List<Integer> listOfEvenNumbers) {
         return listOfEvenNumbers.size() >= 2 ?
@@ -44,16 +31,12 @@ public class StatementService {
                 ResponseHelper.makeOkResponse(false);
     }
 
-    public Response<Integer> checkNumber(String value) {
-        int number;
-        try {
-            number = parser.parseToInt(value);
-            return validator.validateNumber(number) ?
-                    ResponseHelper.makeOkResponse(number) :
-                    ResponseHelper.makeErrorResponse(ErrorCode.VALIDATION_ERROR);
-        } catch (CustomException e) {
-            return ResponseHelper.makeErrorResponse(ErrorCode.PARSING_ERROR);
-        }
+    public Response<Integer> checkNumber(int number) {
+        NumberValidator validator = new NumberValidator();
+        return validator.validateNumber(number) ?
+                ResponseHelper.makeOkResponse(number) :
+                ResponseHelper.makeErrorResponse(ErrorCode.VALIDATION_ERROR);
+
     }
 
     public Response<Integer> calculateSumOfDividers(int number) {

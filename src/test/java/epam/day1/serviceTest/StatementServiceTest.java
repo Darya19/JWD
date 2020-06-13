@@ -4,6 +4,7 @@ import com.epam.day1.response.ErrorCode;
 import com.epam.day1.response.Response;
 import com.epam.day1.response.Status;
 import com.epam.day1.service.StatementService;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -13,37 +14,45 @@ import static org.testng.Assert.assertEquals;
 
 public class StatementServiceTest {
 
-    StatementService service = new StatementService();
+    StatementService service;
+    List<Integer> actualPositiveList;
+    List<Integer> expectedList;
+    List<Integer> actualNegativeList;
+
+    @BeforeClass
+    public void setUp(){
+        service = new StatementService();
+        actualPositiveList = new ArrayList<>();
+        actualPositiveList.add(123);
+        actualPositiveList.add(545);
+        actualPositiveList.add(589);
+        actualPositiveList.add(458);
+        expectedList = new ArrayList<>();
+        expectedList.add(458);
+        actualNegativeList = new ArrayList<Integer>();
+        actualNegativeList.add(1230);
+        actualNegativeList.add(545);
+        actualNegativeList.add(5890);
+        actualNegativeList.add(-458);
+    }
 
     @Test
     public void createListOfEvenNumbersPositiveTest() {
-        List<Integer> list = new ArrayList<Integer>();
-        list.add(123);
-        list.add(545);
-        list.add(589);
-        list.add(458);
-        Response<List<Integer>> actual = service.createListOfEvenNumbers("123", "545", "589", "458");
-        Response<List<Integer>> expected = new Response<>(Status.OK, ErrorCode.NONE, list);
+        Response<List<Integer>> actual = service.createListOfEvenNumbers(actualPositiveList);
+        Response<List<Integer>> expected = new Response<>(Status.OK, ErrorCode.NONE, expectedList);
         assertEquals(actual, expected);
     }
 
     @Test
-    public void createListOfEvenNumbersNegativeValidationTest() {
-        Response<List<Integer>> actual = service.createListOfEvenNumbers("1526", "366", "890", "-3");
+    public void createListOfEvenNumbersNegativeTest() {
+        Response<List<Integer>> actual = service.createListOfEvenNumbers(actualNegativeList);
         Response<Double> expected = new Response<>(Status.ERROR, ErrorCode.VALIDATION_ERROR, null);
         assertEquals(actual, expected);
     }
 
     @Test
-    public void createListOfEvenNumbersParsingTest() {
-        Response<List<Integer>> actual = service.createListOfEvenNumbers("mkll", "hhjm", "256");
-        Response<Double> expected = new Response<>(Status.ERROR, ErrorCode.PARSING_ERROR, null);
-        assertEquals(actual, expected);
-    }
-
-    @Test
     public void selectEvenNumbersTrueTest() {
-        List<Integer> list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<>();
         list.add(124);
         list.add(542);
         list.add(584);
@@ -54,7 +63,7 @@ public class StatementServiceTest {
 
     @Test
     public void selectEvenNumbersFalseTest() {
-        List<Integer> list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<>();
         list.add(124);
         Response<Boolean> actual = service.trueOrFalseStatement(list);
         Response<Boolean> expected = new Response<>(Status.OK, ErrorCode.NONE, false);
@@ -63,22 +72,15 @@ public class StatementServiceTest {
 
     @Test
     public void checkNumberPositiveTest() {
-        Response<Integer> actual = service.checkNumber("123");
+        Response<Integer> actual = service.checkNumber(123);
         Response<Integer> expected = new Response<>(Status.OK, ErrorCode.NONE, 123);
         assertEquals(actual, expected);
     }
 
     @Test
-    public void checkNumberNegativeValidationTest() {
-        Response<Integer> actual = service.checkNumber("100245");
+    public void checkNumberNegativeTest() {
+        Response<Integer> actual = service.checkNumber(100245);
         Response<Integer> expected = new Response<>(Status.ERROR, ErrorCode.VALIDATION_ERROR, null);
-        assertEquals(actual, expected);
-    }
-
-    @Test
-    public void checkNumberNegativeParsingTest() {
-        Response<Integer> actual = service.checkNumber("1002lki");
-        Response<Integer> expected = new Response<>(Status.ERROR, ErrorCode.PARSING_ERROR, null);
         assertEquals(actual, expected);
     }
 

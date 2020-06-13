@@ -8,13 +8,14 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 
 public class TimeParserTest {
+
     TimeParser parser = new TimeParser();
 
     @Test
-    public void parseMonthNameToIntPositiveTest() {
+    public void parseStringDatePositiveTest() {
         String month = "january";
         try {
-            int actual = parser.parseMonthNameToInt(month);
+            int actual = parser.parseDate(month);
             int expected = 1;
             assertEquals(actual, expected);
         } catch (CustomException e) {
@@ -23,8 +24,20 @@ public class TimeParserTest {
     }
 
     @Test(expectedExceptions = CustomException.class)
-    public void parseMonthNameToIntNegativeTest() throws CustomException {
+    public void parseDateNegativeTest() throws CustomException {
         String month = "jmh";
-        parser.parseMonthNameToInt(month);
+        parser.parseDate(month);
+    }
+
+    @Test
+    public void parseIntDatePositiveTest() {
+        String month = "1";
+        try {
+            int actual = parser.parseDate(month);
+            int expected = 1;
+            assertEquals(actual, expected);
+        } catch (CustomException e) {
+            fail();
+        }
     }
 }

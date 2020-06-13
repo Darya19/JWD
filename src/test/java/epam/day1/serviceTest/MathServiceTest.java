@@ -14,22 +14,15 @@ public class MathServiceTest {
 
     @Test
     public void checkNumberPositiveTest() {
-        Response<Integer> actual = service.checkNumber("123");
+        Response<Integer> actual = service.checkNumber(123);
         Response<Integer> expected = new Response<>(Status.OK, ErrorCode.NONE, 123);
         assertEquals(actual, expected);
     }
 
     @Test
-    public void checkNumberNegativeValidationTest() {
-        Response<Integer> actual = service.checkNumber("100245");
+    public void checkNumberNegativeTest() {
+        Response<Integer> actual = service.checkNumber(100245);
         Response<Integer> expected = new Response<>(Status.ERROR, ErrorCode.VALIDATION_ERROR, null);
-        assertEquals(actual, expected);
-    }
-
-    @Test
-    public void checkNumberNegativeParsingTest() {
-        Response<Integer> actual = service.checkNumber("1002lki");
-        Response<Integer> expected = new Response<>(Status.ERROR, ErrorCode.PARSING_ERROR, null);
         assertEquals(actual, expected);
     }
 

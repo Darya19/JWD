@@ -9,7 +9,7 @@ public class NumberParser {
             int number = Integer.parseInt(value);
             return number;
         } catch (NumberFormatException e) {
-            throw new CustomException("Convert issues",e);
+            throw new CustomException("Parsing issues",e);
         }
     }
 
@@ -18,7 +18,7 @@ public class NumberParser {
             double number = Double.parseDouble(value);
             return number;
         } catch (NumberFormatException e) {
-            throw new CustomException("Convert issues",e);
+            throw new CustomException("Parsing issues",e);
         }
     }
 }

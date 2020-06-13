@@ -16,22 +16,15 @@ public class FunctionServiceTest {
 
     @Test
     public void checkXValuePositiveTest() {
-        Response<Double> actual = service.checkXValue("123.3");
+        Response<Double> actual = service.checkXValue(123.3);
         Response<Double> expected = new Response<>(Status.OK, ErrorCode.NONE, 123.3);
         assertEquals(actual, expected);
     }
 
     @Test
-    public void checkXValueNegativeValidationTest() {
-        Response<Double> actual = service.checkXValue("1526.366");
+    public void checkXValueNegativeTest() {
+        Response<Double> actual = service.checkXValue(1526.366);
         Response<Double> expected = new Response<>(Status.ERROR, ErrorCode.VALIDATION_ERROR, null);
-        assertEquals(actual, expected);
-    }
-
-    @Test
-    public void checkXValueNegativeParsingTest() {
-        Response<Double> actual = service.checkXValue("1526.366za");
-        Response<Double> expected = new Response<>(Status.ERROR, ErrorCode.PARSING_ERROR, null);
         assertEquals(actual, expected);
     }
 
@@ -51,7 +44,7 @@ public class FunctionServiceTest {
 
     @Test
     public void calculateYNegativeTest() {
-        Response<Double> actual = service.calculateY(1.8171206);
+        Response<Double> actual = service.calculateY(Math.pow(6, 1 / 3.));
         Response<Double> expected = new Response<>(Status.ERROR, ErrorCode.DIVISION_BY_ZERO, null);
         assertEquals(actual, expected);
     }

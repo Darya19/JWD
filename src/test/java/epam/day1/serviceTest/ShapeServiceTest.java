@@ -14,22 +14,15 @@ public class ShapeServiceTest {
 
     @Test
     public void checkNumberPositiveTest() {
-        Response<Double> actual = service.checkRadius("123.4");
+        Response<Double> actual = service.checkRadius(123.4);
         Response<Double> expected = new Response<>(Status.OK, ErrorCode.NONE, 123.4);
         assertEquals(actual, expected);
     }
 
     @Test
-    public void checkNumberNegativeValidationTest() {
-        Response<Double> actual = service.checkRadius("10024.565");
+    public void checkNumberNegativeTest() {
+        Response<Double> actual = service.checkRadius(10024.565);
         Response<Double> expected = new Response<>(Status.ERROR, ErrorCode.VALIDATION_ERROR, null);
-        assertEquals(actual, expected);
-    }
-
-    @Test
-    public void checkNumberParsingTest() {
-        Response<Double> actual = service.checkRadius("1002lki");
-        Response<Double> expected = new Response<>(Status.ERROR, ErrorCode.PARSING_ERROR, null);
         assertEquals(actual, expected);
     }
 

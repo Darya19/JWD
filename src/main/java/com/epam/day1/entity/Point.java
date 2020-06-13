@@ -30,9 +30,7 @@ public class Point {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Point point = (Point) o;
-
         if (Double.compare(point.x, x) != 0) return false;
         return Double.compare(point.y, y) == 0;
     }

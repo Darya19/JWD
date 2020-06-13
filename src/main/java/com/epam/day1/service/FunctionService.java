@@ -1,7 +1,5 @@
 package com.epam.day1.service;
 
-import com.epam.day1.exception.CustomException;
-import com.epam.day1.parser.NumberParser;
 import com.epam.day1.response.ErrorCode;
 import com.epam.day1.response.Response;
 import com.epam.day1.validator.NumberValidator;
@@ -11,24 +9,12 @@ import java.util.Map;
 
 public class FunctionService {
 
-    private NumberParser parser;
-    private NumberValidator validator;
+    public Response<Double> checkXValue(Double x) {
+        NumberValidator validator = new NumberValidator();
+        return validator.validateNumber(x) ?
+                ResponseHelper.makeOkResponse(x) :
+                ResponseHelper.makeErrorResponse(ErrorCode.VALIDATION_ERROR);
 
-    public FunctionService() {
-        this.parser = new NumberParser();
-        this.validator = new NumberValidator();
-    }
-
-    public Response<Double> checkXValue(String value) {
-        double x;
-        try {
-            x = parser.parseToDouble(value);
-            return validator.validateNumber(x) ?
-                    ResponseHelper.makeOkResponse(x) :
-                    ResponseHelper.makeErrorResponse(ErrorCode.VALIDATION_ERROR);
-        } catch (CustomException e) {
-            return ResponseHelper.makeErrorResponse(ErrorCode.PARSING_ERROR);
-        }
     }
 
     public Response<Double> calculateY(double x) {
